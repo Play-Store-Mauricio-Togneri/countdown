@@ -16,7 +16,7 @@
 	<style name="score">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:text">123</item>
+        <item name="android:text">0</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">20sp</item>

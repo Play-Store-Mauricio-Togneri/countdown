@@ -7,9 +7,8 @@
     <bool name="ga_autoActivityTracking">true</bool>
     <bool name="ga_reportUncaughtExceptions">true</bool>
 
-    <screenName name="com.mauriciotogneri.andwars.activities.MainMenuActivity">Main Menu Game Activity</screenName>
-    <screenName name="com.mauriciotogneri.andwars.activities.GameActivity">Game Activity</screenName>
+    <screenName name="com.mauriciotogneri.countdown.MainActivity">Main Activity</screenName>
     
-    <string name="ga_trackingId">UA-53658154-1</string>
+    <string name="ga_trackingId">UA-54738104-1</string>
     
 </resources>

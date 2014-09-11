@@ -14,14 +14,27 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
-	private TextView scoreUp;
-	private TextView scoreDown;
+	private TextView upScoreTextView;
+	private TextView downScoreTextView;
 
-	private TextView timerUp;
-	private TextView timerDown;
+	private TextView upTimerTextView;
+	private TextView downTimerTextView;
 	
+	// ==================================
+	
+	private boolean upPressed = false;
+	private boolean downPressed = false;
+	
+	private int upTimer = 0;
+	private int downTimer = 0;
+	
+	private boolean gameStarted = false;
+
 	private Timer timer = new Timer();
-	private int timerValue = 1000;
+
+	// ==================================
+
+	private static final int INITIAL_VALUE = 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -35,16 +48,14 @@ public class MainActivity extends Activity
 
 	private void initialize()
 	{
-		this.scoreUp = (TextView)findViewById(R.id.score_up);
-		this.scoreUp.setText("0");
-		this.scoreDown = (TextView)findViewById(R.id.score_down);
-		this.scoreDown.setText("0");
-
-		this.timerUp = (TextView)findViewById(R.id.timer_up);
-		this.timerUp.setText("1000");
-		this.timerDown = (TextView)findViewById(R.id.timer_down);
-		this.timerDown.setText("1000");
+		this.upScoreTextView = (TextView)findViewById(R.id.score_up);
+		this.upScoreTextView.setText("0");
+		this.downScoreTextView = (TextView)findViewById(R.id.score_down);
+		this.downScoreTextView.setText("0");
 		
+		this.upTimerTextView = (TextView)findViewById(R.id.timer_up);
+		this.downTimerTextView = (TextView)findViewById(R.id.timer_down);
+
 		Button buttonUp = (Button)findViewById(R.id.button_up);
 		buttonUp.setOnTouchListener(new OnTouchListener()
 		{
@@ -88,47 +99,106 @@ public class MainActivity extends Activity
 				return false;
 			}
 		});
+		
+		restartGame();
+	}
+
+	private void restartGame()
+	{
+		this.upTimer = MainActivity.INITIAL_VALUE;
+		updateUpTimerTextView();
+
+		this.downTimer = MainActivity.INITIAL_VALUE;
+		updatedownTimerTextView();
+		
+		this.gameStarted = false;
+		this.timer = new Timer();
 	}
 
 	private void buttonUpPressed()
 	{
-
+		this.upPressed = true;
+		
+		checkStartGame();
 	}
 
 	private void buttonUpReleased()
 	{
-
+		this.upPressed = false;
 	}
 	
 	private void buttonDownPressed()
 	{
-		this.timer.schedule(new TimerTask()
-		{
-			@Override
-			public void run()
-			{
-				updateTimerValue(5);
-			}
-		}, 0, 10);
+		this.downPressed = true;
+		
+		checkStartGame();
 	}
 
 	private void buttonDownReleased()
 	{
-		this.timer.cancel();
-		this.timer.purge();
-		this.timer = new Timer();
+		this.downPressed = false;
+
+		checkEndGame();
 	}
 
-	private void updateTimerValue(final int value)
+	private void checkStartGame()
 	{
-		runOnUiThread(new Runnable()
+		if ((!this.gameStarted) && this.upPressed && this.downPressed)
 		{
-			@Override
-			public void run()
+			this.gameStarted = true;
+
+			this.timer.schedule(new TimerTask()
 			{
-				MainActivity.this.timerValue -= value;
-				MainActivity.this.timerDown.setText(String.valueOf(MainActivity.this.timerValue));
-			}
-		});
+				@Override
+				public void run()
+				{
+					runOnUiThread(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							updateTimer(5);
+						}
+					});
+				}
+			}, 0, 10);
+		}
+	}
+
+	private void checkEndGame()
+	{
+		if ((!this.upPressed) && (!this.downPressed))
+		{
+			this.gameStarted = false;
+
+			this.timer.cancel();
+			this.timer.purge();
+			this.timer = new Timer();
+		}
+	}
+
+	private void updateTimer(int value)
+	{
+		if (this.upPressed)
+		{
+			this.upTimer -= value;
+			updateUpTimerTextView();
+		}
+		
+		if (this.downPressed)
+		{
+			this.downTimer -= value;
+			updatedownTimerTextView();
+		}
+	}
+
+	private void updateUpTimerTextView()
+	{
+		this.upTimerTextView.setText(String.valueOf(MainActivity.this.upTimer));
+	}
+
+	private void updatedownTimerTextView()
+	{
+		this.downTimerTextView.setText(String.valueOf(MainActivity.this.downTimer));
 	}
 }

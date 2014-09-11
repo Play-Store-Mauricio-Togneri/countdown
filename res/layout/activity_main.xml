@@ -22,8 +22,8 @@
             style="@style/score"
             android:rotation="180"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
         
     </RelativeLayout>
 
@@ -32,16 +32,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="vertical"
-        android:background="#DDDDDD" >
+        android:background="#AAAAAA" >
 
         <View 
             android:layout_width="match_parent"
        		android:layout_height="1dp"
-        	android:background="#AAAAAA" />
+        	android:background="#CCCCCC" />
         
         <TextView
             android:id="@+id/timer_up"
             style="@style/countdown_timer"
+            android:background="@layout/border_score_up"
             android:rotation="180" />
         
         <View 
@@ -51,12 +52,13 @@
         
         <TextView
             android:id="@+id/timer_down"
-            style="@style/countdown_timer" />
+            style="@style/countdown_timer"
+            android:background="@layout/border_score_down" />
         
         <View 
             android:layout_width="match_parent"
        		android:layout_height="1dp"
-        	android:background="#AAAAAA" />
+        	android:background="#CCCCCC" />
         
     </LinearLayout>
 
@@ -76,8 +78,8 @@
             android:id="@+id/score_down"
             style="@style/score"
             android:layout_alignParentBottom="true" 
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
         
     </RelativeLayout>
 

@@ -9,6 +9,6 @@
 
     <screenName name="com.mauriciotogneri.countdown.MainActivity">Main Activity</screenName>
     
-    <string name="ga_trackingId">UA-54738104-1</string>
+    <string name="ga_trackingId">UA-54738104-2</string>
     
 </resources>

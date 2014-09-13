@@ -14,9 +14,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:text="Welcome to Countdown"
+            android:text="@string/howtoplay1_title"
             android:textColor="@color/howtoplay_color_title"
             android:textSize="@dimen/howtoplay_font_title" />
 
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="This is a game for 2 players."
+            android:text="@string/howtoplay1_text1"
             android:textColor="@color/howtoplay_color_text"
             android:textSize="@dimen/howtoplay_font_text" />
 
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Both players have to press their buttons and release them before the countdown finishes."
+            android:text="@string/howtoplay1_text2"
             android:textColor="@color/howtoplay_color_text"
             android:textSize="@dimen/howtoplay_font_text" />
 
@@ -40,18 +41,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="The player that gets closer to zero wins."
+            android:text="@string/howtoplay1_text3"
             android:textColor="@color/howtoplay_color_text"
             android:textSize="@dimen/howtoplay_font_text" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:text="Swipe left to continue"
-            android:textColor="@color/howtoplay_color_text"
-            android:textSize="@dimen/howtoplay_font_text" />
+            android:gravity="center_horizontal">
+        	
+            <ImageView 
+                android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@android:drawable/ic_media_play"
+	            android:layout_gravity="center_vertical"
+	            android:contentDescription="@string/image_description"
+	            android:rotation="180" />
+            
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="10dp"
+	            android:layout_marginStart="10dp"
+	            android:layout_gravity="center_vertical"
+	            android:text="@string/howtoplay1_text4"
+	            android:textColor="@color/howtoplay_color_text"
+	            android:textSize="@dimen/howtoplay_font_text" />
+        
+        </LinearLayout>
         
     </LinearLayout>
 

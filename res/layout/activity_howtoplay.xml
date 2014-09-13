@@ -20,18 +20,21 @@
         android:padding="5dp" >
 
         <View
+            android:id="@+id/circle_1"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_margin="5dp"
             android:background="@layout/circle" />
 
         <View
+            android:id="@+id/circle_2"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_margin="5dp"
             android:background="@layout/circle" />
 
         <View
+            android:id="@+id/circle_3"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_margin="5dp"

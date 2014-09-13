@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:gravity="center_horizontal"
-            android:text="Example"
+            android:text="@string/howtoplay3_title"
             android:textColor="@color/howtoplay_color_title"
             android:textSize="@dimen/howtoplay_font_title" />
 
@@ -24,13 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/howtoplay_2" />
+            android:contentDescription="@string/image_description"
+            android:src="@drawable/howtoplay2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="The player that gets closer to zero wins."
+            android:text="@string/howtoplay3_text1"
             android:textColor="@color/howtoplay_color_text"
             android:textSize="@dimen/howtoplay_font_text" />
         
@@ -38,9 +39,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="But only if the countdown hans't passed zero yet!"
+            android:text="@string/howtoplay3_text2"
             android:textColor="@color/howtoplay_color_text"
             android:textSize="@dimen/howtoplay_font_text" />
+        
+        <Button
+            android:id="@+id/start_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="@dimen/howtoplay_font_text"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/howtoplay3_text3" />
         
         <View 
             android:layout_width="wrap_content"

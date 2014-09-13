@@ -2,5 +2,21 @@
 <resources>
 
     <string name="app_name">Countdown</string>
+    <string name="image_description"></string>
+    
+    <string name="howtoplay1_title">Welcome to Countdown</string>
+    <string name="howtoplay1_text1">This is a game for 2 players.</string>
+    <string name="howtoplay1_text2">Both players have to press their buttons and release them before the countdown finishes.</string>
+    <string name="howtoplay1_text3">The player that gets closer to zero wins.</string>
+    <string name="howtoplay1_text4">Swipe left to continue</string>
+    
+    <string name="howtoplay2_title">Example</string>
+    <string name="howtoplay2_text1">When both players press the buttons the countdown starts.</string>
+    <string name="howtoplay2_text2">If a player releases the button, his personal countdown stops.</string>
+    
+    <string name="howtoplay3_title">Example</string>
+    <string name="howtoplay3_text1">The player that gets closer to zero wins.</string>
+    <string name="howtoplay3_text2">But only if the countdown hans\'t passed zero yet!</string>
+    <string name="howtoplay3_text3">START</string>
 
 </resources>

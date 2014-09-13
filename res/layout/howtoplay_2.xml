@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:gravity="center_horizontal"
-            android:text="Example"
+            android:text="@string/howtoplay2_title"
             android:textColor="@color/howtoplay_color_title"
             android:textSize="@dimen/howtoplay_font_title" />
 
@@ -24,13 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/howtoplay_1" />
+            android:contentDescription="@string/image_description"
+            android:src="@drawable/howtoplay1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="When both players press the buttons the countdown starts."
+            android:text="@string/howtoplay2_text1"
             android:textColor="@color/howtoplay_color_text"
             android:textSize="@dimen/howtoplay_font_text" />
         
@@ -38,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="If a player releases the button, his personal countdown stops."
+            android:text="@string/howtoplay2_text2"
             android:textColor="@color/howtoplay_color_text"
             android:textSize="@dimen/howtoplay_font_text" />
         

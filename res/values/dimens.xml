@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="howtoplay_font_title">30sp</dimen>
+    <dimen name="howtoplay_font_text">20sp</dimen>
+
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="howtoplay_color_title" type="color">#0073AA</item>
+    <item name="howtoplay_color_text" type="color">#888888</item>
+
+</resources>

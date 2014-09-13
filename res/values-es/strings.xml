@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Countdown</string>
+    <string name="image_description"></string>
+    
+    <string name="howtoplay1_title">Bienvenido a Countdown</string>
+    <string name="howtoplay1_text1">Este es un juego para 2 jugadores.</string>
+    <string name="howtoplay1_text2">Ambos jugadores deben presionar sus botones y soltarlos antes de que el contador finalice.</string>
+    <string name="howtoplay1_text3">El jugador que termine más cerca de cero gana.</string>
+    <string name="howtoplay1_text4">Desplaza hacia la izquierda para continuar</string>
+    
+    <string name="howtoplay2_title">Ejemplo</string>
+    <string name="howtoplay2_text1">Cuando ambos jugadores presionan los botones el contador comienza.</string>
+    <string name="howtoplay2_text2">Si un jugador suelta su botón, su contador personal se detiene.</string>
+    
+    <string name="howtoplay3_title">Ejemplo</string>
+    <string name="howtoplay3_text1">El jugador que termine más cerca de cero gana.</string>
+    <string name="howtoplay3_text2">Pero sólo si su contador no ha pasado de cero.</string>
+    <string name="howtoplay3_text3">JUGAR</string>
+
+</resources>

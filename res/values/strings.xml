@@ -16,7 +16,7 @@
     
     <string name="howtoplay3_title">Example</string>
     <string name="howtoplay3_text1">The player that gets closer to zero wins.</string>
-    <string name="howtoplay3_text2">But only if the countdown hans\'t passed zero yet!</string>
+    <string name="howtoplay3_text2">But only if the countdown hasn\'t passed zero yet!</string>
     <string name="howtoplay3_text3">START</string>
 
 </resources>

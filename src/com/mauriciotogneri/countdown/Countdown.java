@@ -12,32 +12,31 @@ import com.google.android.gms.analytics.Tracker;
 public class Countdown extends Application
 {
 	private Tracker tracker;
-
+	
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
-
+		
 		ACRA.init(this);
 		ACRA.getErrorReporter().putCustomData("PACKAGE_NAME", getPackageName());
-		
+
 		StrictMode.ThreadPolicy.Builder threadBuilder = new StrictMode.ThreadPolicy.Builder();
 		threadBuilder.detectAll();
 		threadBuilder.penaltyLog();
 		StrictMode.setThreadPolicy(threadBuilder.build());
-
+		
 		StrictMode.VmPolicy.Builder vmBuilder = new StrictMode.VmPolicy.Builder();
 		vmBuilder.detectAll();
 		vmBuilder.penaltyLog();
 		StrictMode.setVmPolicy(vmBuilder.build());
-		
+
 		GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
 		this.tracker = analytics.newTracker(R.xml.app_tracker);
 	}
-
+	
 	public Tracker getTracker()
 	{
-		// TODO: CONFIGURE TRACKER XML
 		return this.tracker;
 	}
 }

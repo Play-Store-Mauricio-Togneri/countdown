@@ -5,7 +5,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -14,55 +16,77 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class MainActivity extends Activity
 {
 	private TextView upScoreTextView;
 	private TextView downScoreTextView;
-	
+
 	private TextView upTimerTextView;
 	private TextView downTimerTextView;
-	
+
 	// ==================================
-	
+
 	private boolean upPressed = false;
 	private boolean downPressed = false;
-	
+
 	private boolean upBlocked = false;
 	private boolean downBlocked = false;
-	
+
 	private int upTimer = 0;
 	private int downTimer = 0;
-	
+
 	private int upScore = 0;
 	private int downScore = 0;
-	
+
 	private boolean gameStarted = false;
-	
+
 	private Timer timer = new Timer();
-	
+
 	// ==================================
-	
+
 	private static final int TIMER_UP_LIMIT = 1000;
 	private static final int TIMER_BOTTOM_LIMIT = -1000;
-	
+
 	private static final int MIN_COUNTDOWN_RATE = 8;
 	private static final int MAX_COUNTDOWN_RATE = 12;
-	
+
 	private static final int COLOR_TIMER_NORMAL = Color.argb(255, 80, 80, 80);
 	private static final int COLOR_TIMER_UNDER = Color.argb(255, 160, 0, 0);
-	
+
+	private static final String FIRST_LAUNCH_ATTRIBUTE = "first_launch";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		
+
 		initialize();
-		
-		Intent intent = new Intent(this, HowToPlay.class);
-		startActivity(intent);
+
+		if (firstLaunch())
+		{
+			Intent intent = new Intent(this, HowToPlay.class);
+			startActivity(intent);
+		}
+	}
+
+	private boolean firstLaunch()
+	{
+		SharedPreferences preferences = getSharedPreferences(MainActivity.class.toString(), Context.MODE_PRIVATE);
+		boolean result = preferences.getBoolean(MainActivity.FIRST_LAUNCH_ATTRIBUTE, true);
+
+		if (result)
+		{
+			SharedPreferences.Editor editor = getSharedPreferences(MainActivity.class.toString(), Context.MODE_PRIVATE).edit();
+			editor.putBoolean(MainActivity.FIRST_LAUNCH_ATTRIBUTE, false);
+			editor.commit();
+		}
+
+		return result;
 	}
 	
 	private void initialize()
@@ -71,10 +95,10 @@ public class MainActivity extends Activity
 		this.upScoreTextView.setText("0");
 		this.downScoreTextView = (TextView)findViewById(R.id.score_down);
 		this.downScoreTextView.setText("0");
-		
+
 		this.upTimerTextView = (TextView)findViewById(R.id.timer_up);
 		this.downTimerTextView = (TextView)findViewById(R.id.timer_down);
-		
+
 		Button buttonUp = (Button)findViewById(R.id.button_up);
 		buttonUp.setOnTouchListener(new OnTouchListener()
 		{
@@ -87,16 +111,16 @@ public class MainActivity extends Activity
 					case MotionEvent.ACTION_DOWN:
 						buttonUpPressed();
 						break;
-					
+
 					case MotionEvent.ACTION_UP:
 						buttonUpReleased();
 						break;
 				}
-				
+
 				return false;
 			}
 		});
-		
+
 		Button buttonDown = (Button)findViewById(R.id.button_down);
 		buttonDown.setOnTouchListener(new OnTouchListener()
 		{
@@ -109,77 +133,94 @@ public class MainActivity extends Activity
 					case MotionEvent.ACTION_DOWN:
 						buttonDownPressed();
 						break;
-					
+
 					case MotionEvent.ACTION_UP:
 						buttonDownReleased();
 						break;
 				}
-				
+
 				return false;
 			}
 		});
-		
+
 		restartGame();
+		sendHitAppLaunched();
 	}
-	
+
+	private void sendHitAppLaunched()
+	{
+		Thread thread = new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				Countdown application = (Countdown)getApplication();
+				Tracker tracker = application.getTracker();
+				tracker.setScreenName("App Launched");
+				tracker.send(new HitBuilders.ScreenViewBuilder().build());
+			}
+		});
+		thread.start();
+	}
+
 	private void restartGame()
 	{
 		this.upTimer = MainActivity.TIMER_UP_LIMIT;
 		this.downTimer = MainActivity.TIMER_UP_LIMIT;
 		updateTimersTextView();
-		
+
 		this.upBlocked = false;
 		this.downBlocked = false;
-		
-		this.gameStarted = false;
 
+		this.gameStarted = false;
+		
 		this.timer = new Timer();
 	}
-	
+
 	private void buttonUpPressed()
 	{
 		this.upPressed = true;
-		
+
 		checkStartGame();
 	}
-	
+
 	private void buttonUpReleased()
 	{
 		this.upBlocked = true;
 		this.upPressed = false;
-		
+
 		checkEndGame();
 	}
-	
+
 	private void buttonDownPressed()
 	{
 		this.downPressed = true;
-		
+
 		checkStartGame();
 	}
-	
+
 	private void buttonDownReleased()
 	{
 		this.downBlocked = true;
 		this.downPressed = false;
-		
+
 		checkEndGame();
 	}
-	
+
 	private void checkStartGame()
 	{
 		if ((!this.gameStarted) && (this.upPressed || this.downPressed))
 		{
 			restartGame();
 		}
-		
+
 		if ((!this.gameStarted) && this.upPressed && this.downPressed)
 		{
 			this.gameStarted = true;
-			
+
 			Random random = new Random();
 			final int frequency = random.nextInt((MainActivity.MAX_COUNTDOWN_RATE - MainActivity.MIN_COUNTDOWN_RATE) + 1) + MainActivity.MIN_COUNTDOWN_RATE;
-			
+
 			this.timer.schedule(new TimerTask()
 			{
 				@Override
@@ -188,7 +229,7 @@ public class MainActivity extends Activity
 					runOnUiThread(new Runnable()
 					{
 						final int rate = (int)(frequency * 0.7f);
-
+						
 						@Override
 						public void run()
 						{
@@ -199,62 +240,62 @@ public class MainActivity extends Activity
 			}, 0, frequency);
 		}
 	}
-	
+
 	private void checkEndGame()
 	{
 		if (this.gameStarted && (!this.upPressed) && (!this.downPressed))
 		{
 			this.gameStarted = false;
-			
+
 			if ((this.upTimer >= 0) && ((this.upTimer < this.downTimer) || (this.downTimer < 0)))
 			{
 				this.upScore++;
 			}
-			
+
 			if ((this.downTimer >= 0) && ((this.downTimer < this.upTimer) || (this.upTimer < 0)))
 			{
 				this.downScore++;
 			}
-
+			
 			updateScoresTextView();
-
+			
 			cancelTimer();
 		}
 	}
-	
+
 	private void cancelTimer()
 	{
 		this.timer.cancel();
 		this.timer.purge();
 		this.timer = new Timer();
 	}
-	
+
 	private void updateTimer(int value)
 	{
 		if ((this.upPressed) && (!this.upBlocked))
 		{
 			this.upTimer -= value;
 		}
-		
+
 		if ((this.downPressed) && (!this.downBlocked))
 		{
 			this.downTimer -= value;
 		}
-		
+
 		if ((this.upTimer < MainActivity.TIMER_BOTTOM_LIMIT) || (this.downTimer < MainActivity.TIMER_BOTTOM_LIMIT))
 		{
 			this.upTimer = MainActivity.TIMER_BOTTOM_LIMIT;
 			this.downTimer = MainActivity.TIMER_BOTTOM_LIMIT;
 			cancelTimer();
 		}
-		
+
 		updateTimersTextView();
 	}
-	
+
 	private void updateTimersTextView()
 	{
 		this.upTimerTextView.setText(String.valueOf(this.upTimer));
-
+		
 		if (this.upTimer < 0)
 		{
 			this.upTimerTextView.setTextColor(MainActivity.COLOR_TIMER_UNDER);
@@ -263,9 +304,9 @@ public class MainActivity extends Activity
 		{
 			this.upTimerTextView.setTextColor(MainActivity.COLOR_TIMER_NORMAL);
 		}
-
-		this.downTimerTextView.setText(String.valueOf(this.downTimer));
 		
+		this.downTimerTextView.setText(String.valueOf(this.downTimer));
+
 		if (this.downTimer < 0)
 		{
 			this.downTimerTextView.setTextColor(MainActivity.COLOR_TIMER_UNDER);
@@ -275,7 +316,7 @@ public class MainActivity extends Activity
 			this.downTimerTextView.setTextColor(MainActivity.COLOR_TIMER_NORMAL);
 		}
 	}
-
+	
 	private void updateScoresTextView()
 	{
 		this.upScoreTextView.setText(String.valueOf(this.upScore));

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/border_table_up"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_up"
+            style="@style/button"
+            android:background="@drawable/border_red"/>
+
+        <TextView
+            android:id="@+id/score_up"
+            style="@style/score"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:rotation="180"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="#AAAAAA"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"/>
+
+        <TextView
+            android:id="@+id/timer_up"
+            style="@style/countdown_timer"
+            android:background="@drawable/border_score_up"
+            android:rotation="180"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#AAAAAA"/>
+
+        <TextView
+            android:id="@+id/timer_down"
+            style="@style/countdown_timer"
+            android:background="@drawable/border_score_down"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/border_table_down"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_down"
+            style="@style/button"
+            android:background="@drawable/border_blue"/>
+
+        <TextView
+            android:id="@+id/score_down"
+            style="@style/score"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

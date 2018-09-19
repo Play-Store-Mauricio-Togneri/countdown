@@ -1,6 +1,5 @@
 package com.mauriciotogneri.countdown;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,14 +7,9 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 import java.util.Random;
 import java.util.Timer;
@@ -93,76 +87,47 @@ public class MainActivity extends Activity
 
     private void initialize()
     {
-        this.upScoreTextView = (TextView) findViewById(R.id.score_up);
+        this.upScoreTextView = findViewById(R.id.score_up);
         this.upScoreTextView.setText("0");
-        this.downScoreTextView = (TextView) findViewById(R.id.score_down);
+        this.downScoreTextView = findViewById(R.id.score_down);
         this.downScoreTextView.setText("0");
 
-        this.upTimerTextView = (TextView) findViewById(R.id.timer_up);
-        this.downTimerTextView = (TextView) findViewById(R.id.timer_down);
+        this.upTimerTextView = findViewById(R.id.timer_up);
+        this.downTimerTextView = findViewById(R.id.timer_down);
 
-        Button buttonUp = (Button) findViewById(R.id.button_up);
-        buttonUp.setOnTouchListener(new OnTouchListener()
-        {
-            @Override
-            @SuppressLint("ClickableViewAccessibility")
-            public boolean onTouch(View view, MotionEvent event)
+        Button buttonUp = findViewById(R.id.button_up);
+        buttonUp.setOnTouchListener((view, event) -> {
+            switch (event.getAction())
             {
-                switch (event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        buttonUpPressed();
-                        break;
+                case MotionEvent.ACTION_DOWN:
+                    buttonUpPressed();
+                    break;
 
-                    case MotionEvent.ACTION_UP:
-                        buttonUpReleased();
-                        break;
-                }
-
-                return false;
+                case MotionEvent.ACTION_UP:
+                    buttonUpReleased();
+                    break;
             }
+
+            return false;
         });
 
-        Button buttonDown = (Button) findViewById(R.id.button_down);
-        buttonDown.setOnTouchListener(new OnTouchListener()
-        {
-            @Override
-            @SuppressLint("ClickableViewAccessibility")
-            public boolean onTouch(View view, MotionEvent event)
+        Button buttonDown = findViewById(R.id.button_down);
+        buttonDown.setOnTouchListener((view, event) -> {
+            switch (event.getAction())
             {
-                switch (event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        buttonDownPressed();
-                        break;
+                case MotionEvent.ACTION_DOWN:
+                    buttonDownPressed();
+                    break;
 
-                    case MotionEvent.ACTION_UP:
-                        buttonDownReleased();
-                        break;
-                }
-
-                return false;
+                case MotionEvent.ACTION_UP:
+                    buttonDownReleased();
+                    break;
             }
+
+            return false;
         });
 
         restartGame();
-        sendHitAppLaunched();
-    }
-
-    private void sendHitAppLaunched()
-    {
-        Thread thread = new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Countdown application = (Countdown) getApplication();
-                Tracker tracker = application.getTracker();
-                tracker.setScreenName("App Launched");
-                tracker.send(new HitBuilders.ScreenViewBuilder().build());
-            }
-        });
-        thread.start();
     }
 
     private void restartGame()

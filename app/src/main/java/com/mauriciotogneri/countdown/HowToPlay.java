@@ -36,7 +36,7 @@ public class HowToPlay extends FragmentActivity
         this.circle2 = findViewById(R.id.circle_2);
         this.circle3 = findViewById(R.id.circle_3);
 
-        ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
+        ViewPager pager = findViewById(R.id.view_pager);
         pager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager()));
         pager.addOnPageChangeListener(new OnPageChangeListener()
         {

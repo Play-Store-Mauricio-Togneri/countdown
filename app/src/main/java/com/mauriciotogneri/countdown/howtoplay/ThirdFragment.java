@@ -2,10 +2,10 @@ package com.mauriciotogneri.countdown.howtoplay;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
@@ -25,19 +25,12 @@ public class ThirdFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View layout = inflater.inflate(R.layout.howtoplay_3, container, false);
 
-        Button startButton = (Button) layout.findViewById(R.id.start_game);
-        startButton.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                startGame();
-            }
-        });
+        Button startButton = layout.findViewById(R.id.start_game);
+        startButton.setOnClickListener(view -> startGame());
 
         return layout;
     }
